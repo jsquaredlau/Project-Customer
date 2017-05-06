@@ -10,6 +10,7 @@ import { CardSignups } from '../pages/card-signups/card-signups';
 import { Memberships } from '../pages/memberships/memberships';
 import { MembershipCard } from '../pages/membership-card/membership-card';
 import { MembershipCardActions } from '../pages/membership-card-actions/membership-card-actions';
+import { PointConvertor } from '../pages/point-convertor/point-convertor';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,7 +18,7 @@ import { MembershipCardActions } from '../pages/membership-card-actions/membersh
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = MembershipCardActions;
+  rootPage: any = PointConvertor;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -32,7 +33,8 @@ export class MyApp {
       { title: 'Card Signups', component: CardSignups },
       { title: 'Memberships', component: Memberships },
       { title: 'Membership Card', component: MembershipCard },
-      { title: 'Membership Card Actions', component: MembershipCardActions }
+      { title: 'Membership Card Actions', component: MembershipCardActions },
+      { title: 'Point Convertor', component: PointConvertor }
     ];
 
   }
