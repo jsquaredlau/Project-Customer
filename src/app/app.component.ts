@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { Login } from '../pages/login/login';
 import { CardSignups } from '../pages/card-signups/card-signups';
 import { Memberships } from '../pages/memberships/memberships';
+import { MembershipCard } from '../pages/membership-card/membership-card';
 
 @Component({
   templateUrl: 'app.html'
@@ -15,7 +16,7 @@ import { Memberships } from '../pages/memberships/memberships';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Memberships;
+  rootPage: any = MembershipCard;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -28,7 +29,8 @@ export class MyApp {
       { title: 'List', component: ListPage },
       { title: 'Login', component: Login },
       { title: 'Card Signups', component: CardSignups },
-      { title: 'Memberships', component: Memberships }
+      { title: 'Memberships', component: Memberships },
+      { title: 'Membership Card', component: MembershipCard }
     ];
 
   }

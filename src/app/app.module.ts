@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { Login } from '../pages/login/login';
 import { CardSignups } from '../pages/card-signups/card-signups';
 import { Memberships } from '../pages/memberships/memberships';
+import { MembershipCard } from '../pages/membership-card/membership-card';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +20,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     Login,
     CardSignups,
-    Memberships
+    Memberships,
+    MembershipCard
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ListPage,
     Login,
     CardSignups,
-    Memberships
+    Memberships,
+    MembershipCard
   ],
   providers: [
     StatusBar,
