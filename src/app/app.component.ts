@@ -9,6 +9,7 @@ import { Login } from '../pages/login/login';
 import { CardSignups } from '../pages/card-signups/card-signups';
 import { Memberships } from '../pages/memberships/memberships';
 import { MembershipCard } from '../pages/membership-card/membership-card';
+import { MembershipCardActions } from '../pages/membership-card-actions/membership-card-actions';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +17,7 @@ import { MembershipCard } from '../pages/membership-card/membership-card';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = MembershipCard;
+  rootPage: any = MembershipCardActions;
 
   pages: Array<{ title: string, component: any }>;
 
@@ -30,7 +31,8 @@ export class MyApp {
       { title: 'Login', component: Login },
       { title: 'Card Signups', component: CardSignups },
       { title: 'Memberships', component: Memberships },
-      { title: 'Membership Card', component: MembershipCard }
+      { title: 'Membership Card', component: MembershipCard },
+      { title: 'Membership Card Actions', component: MembershipCardActions }
     ];
 
   }

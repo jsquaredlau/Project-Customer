@@ -9,6 +9,7 @@ import { Login } from '../pages/login/login';
 import { CardSignups } from '../pages/card-signups/card-signups';
 import { Memberships } from '../pages/memberships/memberships';
 import { MembershipCard } from '../pages/membership-card/membership-card';
+import { MembershipCardActions } from '../pages/membership-card-actions/membership-card-actions';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +22,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Login,
     CardSignups,
     Memberships,
-    MembershipCard
+    MembershipCard,
+    MembershipCardActions
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Login,
     CardSignups,
     Memberships,
-    MembershipCard
+    MembershipCard,
+    MembershipCardActions
   ],
   providers: [
     StatusBar,
