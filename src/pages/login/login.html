@@ -24,8 +24,8 @@
       <ion-input [(ngModel)]="username"></ion-input>
     </ion-item>
     <div class="login-btns">
-      <button ion-button round class="login-new-customer">Signup</button>
-      <button ion-button round class="login-submit">Login</button>
+      <!-- <button ion-button round class="login-new-customer">Signup</button> -->
+      <button ion-button round class="login-submit" (click)="login(username)">Login</button>
     </div>
   </div>
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { AccountService } from '../../providers/account-service';
+import { Memberships } from '../memberships/memberships';
 /**
  * Generated class for the Login page.
  *
@@ -14,11 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Login {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private accountService: AccountService) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Login');
   }
+
+  public login(username: string) {
+    this.accountService.username = username;
+    this.navCtrl.setRoot(Memberships);
+  }
+
 
 }

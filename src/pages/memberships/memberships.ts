@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AccountService } from '../../providers/account-service';
 
 /**
  * Generated class for the Memberships page.
@@ -14,10 +15,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class Memberships {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public username: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private accountService: AccountService) {
   }
 
   ionViewDidLoad() {
+    this.username = this.accountService.username;
     console.log('ionViewDidLoad Memberships');
   }
 
