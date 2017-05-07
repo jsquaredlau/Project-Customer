@@ -1,3 +1,41 @@
 page-point-convertor {
   text-align: center;
+  font-size: 20px;
+
+  .agreement {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 32px;
+  }
+
+  .rate {
+    margin-bottom: 10px;
+  }
+
+  .ratio {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+
+  .balance {
+    text-align: left;
+  }
+
+  .convert {
+    text-align: left;
+  }
+
+  .receivable {
+    margin-bottom: 20px;
+
+    .points {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 32px;
+    }
+  }
+
+  .submit {
+    width: 20em;
+  }
 }
