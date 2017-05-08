@@ -19,9 +19,16 @@
 
 
 <ion-content>
+  <div class="loader loader-double" [ngClass]="{'is-active': !finishedLoading}"></div>
   <ion-list>
-    <button ion-item class="list-item">BASYXLab</button>
+
+    <!-- <button ion-item class="list-item" *ngFor="let item for items"> {{item}} </button> -->
+    <ng-template ngFor let-item [ngForOf]="items" let-j="index">
+      <button ion-item class="list-item">{{ item.business }}</button>
+    </ng-template>
+
+    <!-- <button ion-item class="list-item">BASYXLab</button>
     <button ion-item class="list-item">NeikidFyre</button>
-    <button ion-item class="list-item">Ataraxia</button>
+    <button ion-item class="list-item">Ataraxia</button> -->
   </ion-list>
 </ion-content>

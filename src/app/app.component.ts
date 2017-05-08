@@ -18,7 +18,7 @@ import { PointConvertor } from '../pages/point-convertor/point-convertor';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Login;
+  rootPage: any = Memberships;
 
   pages: Array<{ title: string, component: any }>;
 

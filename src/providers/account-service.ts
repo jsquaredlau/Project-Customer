@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Http } from "@angular/http";
+// import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-
+import 'rxjs/add/operator/catch';
 /*
   Generated class for the AccountService provider.
 
@@ -11,8 +12,9 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AccountService {
 
-  public username: string = null;
-  public memberships = {};
+  public username: string = 'doge';
+  public memberships: any;
+  public membershipsList: Array<{ business: string, address: string, provider: string }> = [];
 
   private providers = {
     laas1: "http://jsquared.ga:3000/api/v1"
@@ -25,45 +27,74 @@ export class AccountService {
   public findMemberships(username: string): any {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
-    for (const provider in this.providers) {
-      this.http.post(
-        this.providers[provider] + '/mobile/users/membership/list',
-        {
-          fbId: this.username
-        },
-        options
-      )
-        .subscribe(
-        (data) => {
-          this.memberships = data.json();
-          return true;
-        },
-        (error) => {
-          return false;
-        }
-        )
-    }
+    return this.http.post(
+      this.providers['laas1'] + '/mobile/user/membership/list',
+      {
+        fbId: this.username
+      },
+      options
+    )
+    //   .map(res => res.json())
+    //   .subscribe((laas1Data) => {
+    //     laas1Data;
+    //     /* WE NEED THIS FOR DOUBLE END POINTS */
+    //     // this.http.post(this.providers['laas1'] + '/mobile/user/membership/list', { fbId: this.username }, options)
+    //     //   .subscribe((laas2Data) => {
+    //     //     for (const business in laas1Data.json()) {
+    //     //       const info = {
+    //     //         business: business,
+    //     //         address: laas1Data.json()[business],
+    //     //         provider: 'laas1'
+    //     //       }
+    //     //       this.membershipsList.push(info);
+    //     //
+    //     //       for (const business in laas1Data.json()) {
+    //     //         const info = {
+    //     //           business: business,
+    //     //           address: laas1Data.json()[business],
+    //     //           provider: 'laas2'
+    //     //         }
+    //     //         this.membershipsList.push(info);
+    //     //       }
+    //     //     }
+    //     //   });
+    //
+    //     /* WE NEED THIS FOR SINGLE END POINT */
+    //     // for (const business in laas1Data.json()) {
+    //     //   console.log('Business is ' + business + ' and address is ' + laas1Data.json()[business]);
+    //     //   const info = {
+    //     //     business: business,
+    //     //     address: laas1Data.json()[business],
+    //     //     provider: 'laas1'
+    //     //   }
+    //     //   this.membershipsList.push(info);
+    //     // }
+    //     // this.membershipsList;
+    //     // console.log(this.membershipsList);
+    //     // return this.membershipsList;
+    //     // console.log(laas1Data);
+    //     // console.log('hola');
+    //   })
   }
 
   public makeMembership(laas: string, business: string, username: string): any {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
     this.http.post(
-      this.providers[laas] + '/mobile/laas/' + business + 'user/new',
-      {
-        fbId: username,
-        password: 'password'
-      },
-      options
-    )
+      this.providers[laas] + '/mobile/laas/' + business + 'user/new', { fbId: username, password: 'password' }, options)
       .subscribe(
       (data) => {
-        return this.memberships[business] = data.json()[business];
+        const info = {
+          business: business,
+          address: data.json()[business],
+          provider: 'laas1'
+        }
+        this.membershipsList.push(info);
+        return this.membershipsList;
       },
       (error) => {
         return null;
-      }
-      )
+      })
   }
 
 }
