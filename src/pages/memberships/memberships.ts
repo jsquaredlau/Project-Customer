@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AccountService } from '../../providers/account-service';
+import { MembershipCard } from '../membership-card/membership-card';
 import 'rxjs/add/operator/map';
 
 /**
@@ -22,6 +23,11 @@ export class Memberships {
   public username: string;
   constructor(public navCtrl: NavController, public navParams: NavParams, private accountService: AccountService) {
     this.finishedLoading = false;
+  }
+
+  ionViewWillEnter() {
+    this.finishedLoading = false;
+    this.items = [];
     this.accountService.findMemberships(this.accountService.username)
       .map(res => res.json())
       .subscribe((result) => {
@@ -46,6 +52,10 @@ export class Memberships {
 
   addCard() {
     console.log('Need to add card');
+  }
+
+  viewCard(membership: { business: string, address: string, provider: string }) {
+    this.navCtrl.push(MembershipCard, { membership: membership });
   }
 
 }

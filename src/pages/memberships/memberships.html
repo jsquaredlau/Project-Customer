@@ -24,7 +24,7 @@
 
     <!-- <button ion-item class="list-item" *ngFor="let item for items"> {{item}} </button> -->
     <ng-template ngFor let-item [ngForOf]="items" let-j="index">
-      <button ion-item class="list-item">{{ item.business }}</button>
+      <button ion-item class="list-item" (click)="viewCard(item)">{{ item.business }}</button>
     </ng-template>
 
     <!-- <button ion-item class="list-item">BASYXLab</button>
