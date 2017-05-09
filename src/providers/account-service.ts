@@ -97,4 +97,35 @@ export class AccountService {
       })
   }
 
+  // public pointCheck(laas: string, business: string, username: string, address: string): any {
+  //   this._pointCheck(laas, business, username, address)
+  //     .map(res => res.json())
+  //     .subscribe(
+  //     (result) => {
+  //       console.log('hola');
+  //       console.log(result);
+  //       console.log("goodbye");
+  //       return result;
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //       return error;
+  //     })
+  //
+  // }
+
+  public pointCheck(laas: string, business: string, username: string, address: string): any {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(({ headers: headers }));
+    console.log('we got this far');
+    return this.http.post(
+      this.providers[laas] + '/mobile/user/' + business + '/points/check',
+      {
+        fbId: username,
+        customerAddress: address
+      },
+      options
+    )
+  }
+
 }
