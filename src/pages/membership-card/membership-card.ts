@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
-// import * as QR from 'qr-image';
 import QRCode from 'qrcode-svg';
 
 /**
@@ -22,10 +21,12 @@ export class MembershipCard {
   public points: number = 125;
   public qrcode;
   constructor(public navCtrl: NavController, public navParams: NavParams, private _sanitizer: DomSanitizer) {
-    // console.log(JSON.stringify(QR.svgObject('I love QR!')));
-    // this.path = QR.svgObject('I love QR (NOPE)kwebrfvik.adufiluaebrvliubSDI:CkubrI; KSEBFLIC FCES>K:ISEF;IBUSE .KJLHSER;ISRKJ/WE4FWEFA !').path;
     var qrcode = new QRCode({
-      content: "Hello worldQ",
+      content: JSON.stringify({
+        business: this.navParams.get('business'),
+        address: this.navParams.get('address'),
+        provider: this.navParams.get('provider')
+      }),
       padding: 0,
       width: 300,
       height: 300,
@@ -33,10 +34,8 @@ export class MembershipCard {
       background: "#ffffff",
       ecl: "M"
     }).svg();
-
     this.qrcode = this._sanitizer.bypassSecurityTrustHtml(qrcode);
   }
-  // console.log(qrcode);
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MembershipCard');
