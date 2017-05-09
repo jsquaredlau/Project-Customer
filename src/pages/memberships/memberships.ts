@@ -55,7 +55,7 @@ export class Memberships {
   }
 
   viewCard(membership: { business: string, address: string, provider: string }) {
-    this.navCtrl.push(MembershipCard, { membership: membership });
+    this.navCtrl.push(MembershipCard, { business: membership.business, address: membership.address, provider: membership.provider });
   }
 
 }

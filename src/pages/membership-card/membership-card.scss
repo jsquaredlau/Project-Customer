@@ -1,11 +1,22 @@
 page-membership-card {
   text-align: center;
 
+  svg {
+    margin: 10% auto auto;
+    height: 300px;
+    width: 300px;
+  }
+
   .qr-code {
     margin: 10% auto auto;
     height: 300px;
     width: 300px;
     background-color: red;
+  }
+
+  .qr-svg {
+    height: 300px;
+    width: 300px;
   }
 
   .points {
