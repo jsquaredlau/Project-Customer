@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AccountService } from '../../providers/account-service';
 import { MembershipCard } from '../membership-card/membership-card';
+import { CardSignups } from '../card-signups/card-signups';
 import 'rxjs/add/operator/map';
 
 /**
@@ -27,17 +28,17 @@ export class Memberships {
 
   ionViewWillEnter() {
     this.finishedLoading = false;
-    this.items = [];
     this.accountService.findMemberships(this.accountService.username)
       .map(res => res.json())
       .subscribe((result) => {
         for (const membership in result) {
-          this.items.push({
+          this.accountService.membershipsList.push({
             business: membership,
             address: result[membership],
             provider: 'laas1'
           })
         }
+        this.items = this.accountService.membershipsList;
         this.finishedLoading = true;
       },
       (error) => {
@@ -51,7 +52,7 @@ export class Memberships {
   }
 
   addCard() {
-    console.log('Need to add card');
+    this.navCtrl.push(CardSignups);
   }
 
   viewCard(membership: { business: string, address: string, provider: string }) {

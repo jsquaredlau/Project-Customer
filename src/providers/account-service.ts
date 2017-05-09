@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Http } from "@angular/http";
-// import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 /*
@@ -13,7 +13,7 @@ import 'rxjs/add/operator/catch';
 export class AccountService {
 
   public username: string = 'doge';
-  public memberships: any;
+  // public memberships: any;
   public membershipsList: Array<{ business: string, address: string, provider: string }> = [];
 
   private providers = {
@@ -24,57 +24,65 @@ export class AccountService {
     console.log('Hello AccountService Provider');
   }
 
-  public findMemberships(username: string): any {
+  public findAvailableMemberships() {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
+    const availableBusinesses = [];
+    Observable
+      .forkJoin([
+        this.http.get(this.providers['laas1'] + '/mobile/laas/businesses', options).map(res => res.json()),
+        // this.http.get(this.providers['laas1'] + '/mobile/laas/businesses', options).map(res => res.json()),
+      ])
+      .subscribe((responses) => {
+        const existing = this.existingMembership()
+        for (const business in responses[0].businessList) {
+          if (existing.indexOf(responses[0].businessList[business]) < 0) {
+            availableBusinesses.push(responses[0].businessList[business]);
+          } else {
+            console.log(responses[0].businessList[business] + 'fell out');
+          }
+        }
+        return availableBusinesses;
+      });
+  }
+
+  private existingMembership() {
+    const memberships = []
+    for (const membership in this.membershipsList) {
+      memberships.push(this.membershipsList[membership].business);
+    }
+    return memberships;
+  }
+
+  public newMembership(laas: string, business: string, username: string) {
+    this._newMembership(laas, business, username)
+      .map(res => res.json())
+      .subscribe((result) => {
+        return result;
+      },
+      (error) => {
+        console.log(error);
+      })
+  }
+
+  private _newMembership(laas: string, business: string, username: string) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(({ headers: headers }));
+    console.log('we got this far');
     return this.http.post(
-      this.providers['laas1'] + '/mobile/user/membership/list',
+      this.providers[laas] + '/mobile/laas/' + business + '/user/new',
       {
-        fbId: this.username
+        fbId: username,
+        password: 'password'
       },
       options
     )
-    //   .map(res => res.json())
-    //   .subscribe((laas1Data) => {
-    //     laas1Data;
-    //     /* WE NEED THIS FOR DOUBLE END POINTS */
-    //     // this.http.post(this.providers['laas1'] + '/mobile/user/membership/list', { fbId: this.username }, options)
-    //     //   .subscribe((laas2Data) => {
-    //     //     for (const business in laas1Data.json()) {
-    //     //       const info = {
-    //     //         business: business,
-    //     //         address: laas1Data.json()[business],
-    //     //         provider: 'laas1'
-    //     //       }
-    //     //       this.membershipsList.push(info);
-    //     //
-    //     //       for (const business in laas1Data.json()) {
-    //     //         const info = {
-    //     //           business: business,
-    //     //           address: laas1Data.json()[business],
-    //     //           provider: 'laas2'
-    //     //         }
-    //     //         this.membershipsList.push(info);
-    //     //       }
-    //     //     }
-    //     //   });
-    //
-    //     /* WE NEED THIS FOR SINGLE END POINT */
-    //     // for (const business in laas1Data.json()) {
-    //     //   console.log('Business is ' + business + ' and address is ' + laas1Data.json()[business]);
-    //     //   const info = {
-    //     //     business: business,
-    //     //     address: laas1Data.json()[business],
-    //     //     provider: 'laas1'
-    //     //   }
-    //     //   this.membershipsList.push(info);
-    //     // }
-    //     // this.membershipsList;
-    //     // console.log(this.membershipsList);
-    //     // return this.membershipsList;
-    //     // console.log(laas1Data);
-    //     // console.log('hola');
-    //   })
+  }
+
+  public findMemberships(username: string): any {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(({ headers: headers }));
+    return this.http.post(this.providers['laas1'] + '/mobile/user/membership/list', { fbId: this.username }, options)
   }
 
   public makeMembership(laas: string, business: string, username: string): any {
@@ -97,27 +105,9 @@ export class AccountService {
       })
   }
 
-  // public pointCheck(laas: string, business: string, username: string, address: string): any {
-  //   this._pointCheck(laas, business, username, address)
-  //     .map(res => res.json())
-  //     .subscribe(
-  //     (result) => {
-  //       console.log('hola');
-  //       console.log(result);
-  //       console.log("goodbye");
-  //       return result;
-  //     },
-  //     (error) => {
-  //       console.log(error);
-  //       return error;
-  //     })
-  //
-  // }
-
   public pointCheck(laas: string, business: string, username: string, address: string): any {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
-    console.log('we got this far');
     return this.http.post(
       this.providers[laas] + '/mobile/user/' + business + '/points/check',
       {

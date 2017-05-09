@@ -39,12 +39,10 @@ export class MembershipCard {
     this.accountService.pointCheck(this.navParams.get('provider'), this.navParams.get('business'), this.accountService.username, this.navParams.get('address'))
       .map(res => res.json())
       .subscribe((result) => {
-        console.log(result.balance);
-        console.log('####');
         this.points = result.balance;
       },
       (error) => {
-        console.log('###' + error);
+        console.log('### ' + error);
       });
   }
 
@@ -64,7 +62,7 @@ export class MembershipCard {
         this.points = result.balance;
       },
       (error) => {
-        console.log('###' + error);
+        console.log('### ' + error);
       });
   }
 

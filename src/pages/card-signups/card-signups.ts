@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AccountService } from '../../providers/account-service';
 
 /**
  * Generated class for the CardSignups page.
@@ -14,11 +15,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CardSignups {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private accountService: AccountService) {
+    console.log('lol');
+    console.log(this.accountService.findAvailableMemberships());
   }
 
   ionViewDidLoad() {
-    console.log('welp');
     console.log('ionViewDidLoad CardSignups');
   }
 
