@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AccountService } from '../../providers/account-service';
+import { MembershipCardActions } from '../membership-card-actions/membership-card-actions';
 import QRCode from 'qrcode-svg';
 
 /**
@@ -51,7 +52,7 @@ export class MembershipCard {
   }
 
   openActions() {
-    console.log('Need to open page to different FX');
+    this.navCtrl.push(MembershipCardActions, { business: this.navParams.get('business'), provider: this.navParams.get('provider'), address: this.navParams.get('address') });
   }
 
   refresh() {

@@ -12,11 +12,12 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class AccountService {
 
-  public username: string = 'maru';
+  public username: string = 'doge';
   // public memberships: any;
   public membershipsList: Array<{ business: string, address: string, provider: string }> = [];
 
   private providers = {
+    // laas1: "http://localhost:3000/api/v1"
     laas1: "http://jsquared.ga:3000/api/v1"
   };
 
@@ -61,6 +62,7 @@ export class AccountService {
   public findMemberships(username: string): any {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
+    console.log(this.providers['laas1'] + '/mobile/user/membership/list');
     return this.http.post(this.providers['laas1'] + '/mobile/user/membership/list', { fbId: this.username }, options)
   }
 
@@ -92,6 +94,19 @@ export class AccountService {
       {
         fbId: username,
         customerAddress: address
+      },
+      options
+    )
+  }
+
+  public pointConversionAgreements(laas: string, business: string, username: string): any {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(({ headers: headers }));
+    return this.http.post(
+      this.providers[laas] + '/mobile/' + business + '/fx/list',
+      {
+        business: business,
+        fbId: username
       },
       options
     )

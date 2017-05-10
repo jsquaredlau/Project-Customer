@@ -33,7 +33,6 @@ export class Memberships {
     this.accountService.findMemberships(this.accountService.username)
       .map(res => res.json())
       .subscribe((result) => {
-        console.log(JSON.stringify(result));
         for (const membership in result) {
           this.accountService.membershipsList.push({
             business: membership,
@@ -45,7 +44,7 @@ export class Memberships {
         this.finishedLoading = true;
       },
       (error) => {
-        console.log(error);
+        console.log(JSON.stringify(error));
       });
   }
 
