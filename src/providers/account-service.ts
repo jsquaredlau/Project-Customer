@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class AccountService {
 
-  public username: string = 'doge';
+  public username: string = 'maru';
   // public memberships: any;
   public membershipsList: Array<{ business: string, address: string, provider: string }> = [];
 
@@ -27,48 +27,27 @@ export class AccountService {
   public findAvailableMemberships() {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
-    const availableBusinesses = [];
-    Observable
+    return Observable
       .forkJoin([
         this.http.get(this.providers['laas1'] + '/mobile/laas/businesses', options).map(res => res.json()),
         // this.http.get(this.providers['laas1'] + '/mobile/laas/businesses', options).map(res => res.json()),
       ])
-      .subscribe((responses) => {
-        const existing = this.existingMembership()
-        for (const business in responses[0].businessList) {
-          if (existing.indexOf(responses[0].businessList[business]) < 0) {
-            availableBusinesses.push(responses[0].businessList[business]);
-          } else {
-            console.log(responses[0].businessList[business] + 'fell out');
-          }
-        }
-        return availableBusinesses;
-      });
   }
 
-  private existingMembership() {
-    const memberships = []
-    for (const membership in this.membershipsList) {
-      memberships.push(this.membershipsList[membership].business);
-    }
-    return memberships;
-  }
+  // public newMembership(laas: string, business: string, username: string) {
+  //   this._newMembership(laas, business, username)
+  //     .map(res => res.json())
+  //     .subscribe((result) => {
+  //       return result;
+  //     },
+  //     (error) => {
+  //       console.log(error);
+  //     })
+  // }
 
   public newMembership(laas: string, business: string, username: string) {
-    this._newMembership(laas, business, username)
-      .map(res => res.json())
-      .subscribe((result) => {
-        return result;
-      },
-      (error) => {
-        console.log(error);
-      })
-  }
-
-  private _newMembership(laas: string, business: string, username: string) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
-    console.log('we got this far');
     return this.http.post(
       this.providers[laas] + '/mobile/laas/' + business + '/user/new',
       {

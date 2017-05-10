@@ -28,9 +28,12 @@ export class Memberships {
 
   ionViewWillEnter() {
     this.finishedLoading = false;
+    this.items = [];
+    this.accountService.membershipsList = [];
     this.accountService.findMemberships(this.accountService.username)
       .map(res => res.json())
       .subscribe((result) => {
+        console.log(JSON.stringify(result));
         for (const membership in result) {
           this.accountService.membershipsList.push({
             business: membership,
