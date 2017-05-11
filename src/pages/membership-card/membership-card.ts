@@ -18,11 +18,11 @@ import QRCode from 'qrcode-svg';
 })
 export class MembershipCard {
 
-  public path = '';
-  public business: string = "BASYXLab";
+  public business: string;
   public points: number | string = 'Loading ';
   public qrcode;
   constructor(public navCtrl: NavController, public navParams: NavParams, private _sanitizer: DomSanitizer, private accountService: AccountService) {
+    this.business = this.navParams.get('business');
     var qrcode = new QRCode({
       content: JSON.stringify({
         business: this.navParams.get('business'),

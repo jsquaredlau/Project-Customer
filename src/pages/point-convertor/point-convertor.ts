@@ -27,16 +27,21 @@ export class PointConvertor {
   public pointsLoaded: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private accountService: AccountService, private toast: Toast) {
-    this.finishedLoading = true;
+    this.finishedLoading = false;
     this.fromBusiness = this.navParams.get('business');
     this.toBusiness = this.navParams.get('partnerBusiness');
     this.points = 'Fetching ';
     this.amountReceivable = 0;
     this.amountToConvert = 0;
+    if (this.navParams.get('business') === this.navParams.get('owner')) {
+      this.rate = this.navParams.get('toOwnerFx') + ' : ' + this.navParams.get('toPartnerFx');
+    } else {
+      this.rate = this.navParams.get('toPartnerFx') + ' : ' + this.navParams.get('toOwnerFx');
+    }
+    this.finishedLoading = true;
   }
 
   ionViewWillEnter() {
-    this.pointsLoaded = false;
     this.checkAvailablelBalance();
   }
 
@@ -64,7 +69,7 @@ export class PointConvertor {
   }
 
   runConversion() {
-    if (this.amountToConvert >= this.points) {
+    if (this.amountToConvert < this.points) {
       this.finishedLoading = false;
       this.accountService
         .runPointConversion(
