@@ -42,7 +42,7 @@ export class MembershipCardActions {
   }
 
   openConvertor(action) {
-    this.navCtrl.push(PointConvertor, { business: this.navParams.get('business'), provider: this.navParams.get('provider'), schemeName: action.schemeName, partnerBusiness: action.partner });
+    this.navCtrl.push(PointConvertor, { business: this.navParams.get('business'), provider: this.navParams.get('provider'), schemeName: action.schemeName, partnerBusiness: action.partner, address: this.navParams.get('address') });
   }
 
 }

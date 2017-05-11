@@ -112,4 +112,41 @@ export class AccountService {
     )
   }
 
+  public pointConversionDryrun(laas: string, business: string, schemeName: string, amount: number): any {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(({ headers: headers }));
+    return this.http.post(
+      this.providers[laas] + '/mobile/' + business + '/fx/check',
+      {
+        schemeName: schemeName,
+        amountToConvert: amount
+      },
+      options
+    )
+  }
+
+  public runPointConversion(laas: string, business: string, schemeName: string, amountToConvert: number, customerFromAddress: string, customerToAddress: string): any {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions(({ headers: headers }));
+    return this.http.post(
+      this.providers[laas] + '/mobile/' + business + '/fx/convert',
+      {
+        schemeName: schemeName,
+        amountToConvert: amountToConvert,
+        customerFromAddress: customerFromAddress,
+        customerToAddress: customerToAddress
+      },
+      options
+    )
+  }
+
+  public findMembershipAddress(laas: string, business: string): string {
+    for (const membership in this.membershipsList) {
+      if (this.membershipsList[membership].provider === laas && this.membershipsList[membership].business === business) {
+        return this.membershipsList[membership].address;
+      }
+    }
+    return null;
+  }
+
 }

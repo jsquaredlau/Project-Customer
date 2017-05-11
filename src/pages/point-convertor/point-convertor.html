@@ -14,8 +14,9 @@
 
 
 <ion-content padding>
+  <div class="loader loader-double" [ngClass]="{'is-active': !finishedLoading}"></div>
   <div class="agreement">
-    <span>Jim's Cafe to Grids Hostel Akihabara</span>
+    <span>{{ fromBusiness }} to {{ toBusiness }}</span>
   </div>
 
   <div class="rate">Rate</div>
@@ -24,22 +25,23 @@
   </div>
 
   <div padding class="balance">
-    <span>Available balance : </span><span>2000 pts</span>
+    <span>Available balance : </span><span>{{ points }} pts</span>
   </div>
 
   <div class="convert">
     <ion-item>
       <ion-label color="primary" floating>Amount to convert</ion-label>
-      <ion-input type="number"></ion-input>
+      <ion-input [(ngModel)]="amountToConvert" type="number"></ion-input>
     </ion-item>
+    <button ion-button clear (click)="checkAmountReceivable(amountToConvert)">Submit</button>
   </div>
 
   <div padding class="receivable">
     <div>Amount Receivable</div>
-    <div class="points">60 pts</div>
+    <div class="points">{{ amountReceivable }} pts</div>
   </div>
 
   <div>
-    <button class="submit" ion-button round>Convert</button>
+    <button [disabled]="!pointsLoaded" class="submit" ion-button round (click)="runConversion()">Convert</button>
   </div>
 </ion-content>
