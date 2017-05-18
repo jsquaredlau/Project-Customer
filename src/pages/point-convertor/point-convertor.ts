@@ -50,7 +50,7 @@ export class PointConvertor {
     this.accountService.pointCheck(this.navParams.get('provider'), this.navParams.get('business'), this.accountService.username, this.navParams.get('address'))
       .map(res => res.json())
       .subscribe((result) => {
-        this.points = result.balance;
+        this.points = parseInt(result.balance);
         this.pointsLoaded = true;
       }, (error) => {
         console.log(JSON.stringify(error));
@@ -69,7 +69,7 @@ export class PointConvertor {
   }
 
   runConversion() {
-    if (this.amountToConvert < this.points) {
+    if (this.amountToConvert <= this.points) {
       this.finishedLoading = false;
       this.accountService
         .runPointConversion(
@@ -77,12 +77,10 @@ export class PointConvertor {
         this.navParams.get('business'),
         this.navParams.get('schemeName'),
         this.amountToConvert,
-        this.accountService.findMembershipAddress(this.navParams.get('provider'), this.navParams.get('business')),
-        this.accountService.findMembershipAddress(this.navParams.get('provider'), this.navParams.get('partnerBusiness')))
+        this.accountService.findMembershipAddress(this.navParams.get('business')),
+        this.accountService.findMembershipAddress(this.navParams.get('partnerBusiness')))
         .map(res => res.json())
         .subscribe((result) => {
-          console.log(JSON.stringify(result));
-          //   this.checkAvailablelBalance();
           this.points = <number>this.points - this.amountToConvert;
           this.finishedLoading = true;
           const toastOptions: ToastOptions = {

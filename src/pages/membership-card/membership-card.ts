@@ -26,7 +26,8 @@ export class MembershipCard {
     var qrcode = new QRCode({
       content: JSON.stringify({
         business: this.navParams.get('business'),
-        address: this.navParams.get('address'),
+        customerAddress: this.navParams.get('address'),
+        fbId: this.accountService.username,
         provider: this.navParams.get('provider')
       }),
       padding: 0,

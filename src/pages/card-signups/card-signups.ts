@@ -34,6 +34,15 @@ export class CardSignups {
             });
           }
         }
+
+        for (const business in responses[1].businessList) {
+          if (existing.indexOf(responses[1].businessList[business]) < 0) {
+            this.availableBusinesses.push({
+              business: responses[1].businessList[business],
+              provider: 'laas2'
+            });
+          }
+        }
         this.finishedLoading = true;
       });
   }

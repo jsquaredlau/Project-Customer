@@ -28,7 +28,13 @@ export class MembershipCardActions {
       .map(res => res.json())
       .subscribe(
       (data) => {
-        this.actions = data['fxPartners'];
+        const validFxSchemes = [];
+        for (const scheme in data['fxPartners']) {
+          if (this.accountService.hasMembership(data['fxPartners'][scheme].partner)) {
+            validFxSchemes.push(data['fxPartners'][scheme]);
+          }
+        }
+        this.actions = validFxSchemes;
         this.finishedLoading = true;
       },
       (error) => {

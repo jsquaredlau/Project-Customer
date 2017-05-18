@@ -31,7 +31,7 @@ export class Memberships {
     this.items = [];
     this.accountService.membershipsList = [];
     this.accountService.findMemberships(this.accountService.username)
-      .map(res => res.json())
+      //   .map(res => res.json())
       .subscribe(
       (result) => {
         var pvder;

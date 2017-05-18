@@ -19,7 +19,7 @@ export class AccountService {
   private providers = {
     // laas1: "http://localhost:3000/api/v1"
     laas1: "http://jsquared.ga:3000/api/v1",
-    laas2: "http://jsquared.gq:30001/api/v1"
+    laas2: "http://jsquared.gq:3001/api/v1"
   };
 
   constructor(public http: Http) {
@@ -60,15 +60,15 @@ export class AccountService {
     )
   }
 
-  public findMemberships(username: string): any {
+  public findMemberships(username: string) {
     const headers = new Headers({ 'Content-Type': 'application/json' });
     const options = new RequestOptions(({ headers: headers }));
     // console.log(this.providers['laas1'] + '/mobile/user/membership/list');
     // return this.http.post(this.providers['laas1'] + '/mobile/user/membership/list', { fbId: this.username }, options)
     return Observable
       .forkJoin([
-        this.http.get(this.providers['laas1'] + '/mobile/user/membership/list', options).map(res => res.json()),
-        this.http.get(this.providers['laas2'] + '/mobile/user/membership/list', options).map(res => res.json()),
+        this.http.post(this.providers['laas1'] + '/mobile/user/membership/list', { fbId: this.username }, options).map(res => res.json()),
+        this.http.post(this.providers['laas2'] + '/mobile/user/membership/list', { fbId: this.username }, options).map(res => res.json()),
       ])
   }
 
@@ -146,13 +146,22 @@ export class AccountService {
     )
   }
 
-  public findMembershipAddress(laas: string, business: string): string {
+  public findMembershipAddress(business: string): string {
     for (const membership in this.membershipsList) {
-      if (this.membershipsList[membership].provider === laas && this.membershipsList[membership].business === business) {
+      if (this.membershipsList[membership].business === business) {
         return this.membershipsList[membership].address;
       }
     }
     return null;
+  }
+
+  public hasMembership(business: string): boolean {
+    for (const membership in this.membershipsList) {
+      if (this.membershipsList[membership].business === business) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
