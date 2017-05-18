@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.customerapp134295" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>Wallet</name>
+  <name>customer-app</name>
   <description>An awesome Ionic/Cordova app.</description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
   <content src="index.html"/>
@@ -21,6 +21,8 @@
   <allow-navigation href="http://169.254.204.78:8100"/>
   <allow-navigation href="http://169.254.152.167:8100"/>
   <allow-navigation href="http://169.254.156.80:8100"/>
+  <allow-navigation href="http://169.254.126.143:8100"/>
+  <allow-navigation href="http://169.254.30.125:8100"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>

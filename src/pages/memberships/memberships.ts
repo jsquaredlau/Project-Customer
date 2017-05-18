@@ -32,14 +32,33 @@ export class Memberships {
     this.accountService.membershipsList = [];
     this.accountService.findMemberships(this.accountService.username)
       .map(res => res.json())
-      .subscribe((result) => {
-        for (const membership in result) {
+      .subscribe(
+      (result) => {
+        var pvder;
+        for (const membership in result[0]) {
+          pvder = 'laas1';
+          if (membership !== 'Grids Hostel') {
+            pvder = 'laas2';
+          }
           this.accountService.membershipsList.push({
             business: membership,
-            address: result[membership],
-            provider: 'laas1'
+            address: result[0][membership],
+            provider: pvder
           })
         }
+
+        for (const membership in result[1]) {
+          pvder = 'laas1';
+          if (membership !== 'Grids Hostel') {
+            pvder = 'laas2';
+          }
+          this.accountService.membershipsList.push({
+            business: membership,
+            address: result[1][membership],
+            provider: pvder
+          })
+        }
+
         this.items = this.accountService.membershipsList;
         this.finishedLoading = true;
       },
